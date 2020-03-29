@@ -14,7 +14,7 @@ The purpose of the following script is the cleaning of the 'global shark attacks
 library(readxl)
 shark <- read_excel("GSAF5.xls")
 
-View(shark[1:22,])
+View(shark[1:23,])
 str(shark)
 paste0("edit from github.com")
 ```
