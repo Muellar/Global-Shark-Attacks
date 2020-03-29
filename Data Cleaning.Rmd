@@ -1,0 +1,21 @@
+---
+title: "Shark Attacks"
+output: html_document
+---
+
+## Data Cleaning
+
+The purpose of the following script is the cleaning of the 'global shark attacks' dataset.
+
+## Data Import
+
+
+```{r}
+library(readxl)
+shark <- read_excel("GSAF5.xls")
+
+View(shark[1:15,])
+str(shark)
+```
+
+
