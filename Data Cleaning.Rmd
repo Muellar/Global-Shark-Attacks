@@ -3,20 +3,32 @@ title: "Shark Attacks"
 output: html_document
 ---
 
-## Data Cleaning
+![](sharkattack picture.png)
 
-The purpose of the following script is the cleaning of the 'global shark attacks' dataset.
+```{r eval=FALSE, include=FALSE}
+# Retrieved from: https://www.bing.com/images/search?view=detailV2&id=EF63E80B990B63015E8D6EED897448BF320E188A&thid=OIP.w_9nO-IKJvbrmAD0cV29XQHaE8&exph=2000&expw=3000&q=shark+attack&selectedindex=7&ajaxhist=0&vt=0&adlt=demote&shtp=GetUrl&shid=af3c16a6-a20c-4cf2-aaed-3cb63afa935e&shtk=RG8gU2hhcmtzIFJlYWxseSBOb3QgTGlrZSBIb3cgSHVtYW5zIFRhc3RlPw%3D%3D&shdk=QXVmIEJpbmcgdm9uIHd3dy50b2RheWlmb3VuZG91dC5jb20gZ2VmdW5kZW4%3D&shhk=TKN%2FYQ3smG9emFvtZPDaFmhe39V9NgOF0fnLL%2Fvqo6c%3D&form=EX0023&shth=OSH.n%252FGuSuLF53reEEGSp9ZQfQ
+```
 
-## Data Import
 
+## Introduction
+
+The purpose of the following report is the analysis of the 'global shark attacks' dataset. The dataset was retrieved from http://www.sharkattackfile.net/ on 29.03.2020 and contains current and historical data on shark/human interactions. Our goal is to better understand the behavior of the sharks and to test a few hypotheses.
+
+### Data Import
 
 ```{r}
 library(readxl)
 shark <- read_excel("GSAF5.xls")
 
-View(shark[1:23,])
+View(shark[1:20,])
 str(shark)
-paste0("edit from github.com")
 ```
 
+### Data Cleaning
 
+First we will investigate, clean and prepare every single variable in the dataset. This is an important step because we want to see what kind of data we are dealing with and prepare it accordingly for further analysis.
+
+
+
+
+### Analysis and Imputation of Missing Values
