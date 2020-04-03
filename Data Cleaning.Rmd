@@ -28,7 +28,27 @@ str(shark)
 
 First we will investigate, clean and prepare every single variable in the dataset. This is an important step because we want to see what kind of data we are dealing with and prepare it accordingly for further analysis.
 
+#### Case Number
 
+We have 3 variables with case numbers. Do they contain the same values?
+
+```{r}
+
+table(shark$`Case Number...1` == shark$`Case Number...20`)
+table(shark$`Case Number...1` == shark$`Case Number...21`)
+table(shark$`Case Number...20` == shark$`Case Number...21`)
+
+```
+
+The majority of them do. Because we have no further information about their differences, we will only use the case number 1 and delete the other ones.
+
+```{r}
+names(shark)[names(shark) == "Case Number...1"] <- "Case" # renaming the column name
+shark <- subset(shark, select = -c(`Case Number...20`, 
+                                   `Case Number...21`,
+                                   `...23`,
+                                   `...24`)) # delete unnecessary columns
+```
 
 
 ### Analysis and Imputation of Missing Values
