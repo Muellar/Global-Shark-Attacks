@@ -20,6 +20,9 @@ The purpose of the following report is the analysis of the 'global shark attacks
 library(readxl)
 shark <- read_excel("GSAF5.xls")
 
+library(data.table)
+DT_shark<-as.data.table(shark)
+
 View(shark[1:20,])
 str(shark)
 ```
@@ -37,6 +40,52 @@ We have 3 variables with case numbers. Do they contain the same values?
 table(shark$`Case Number...1` == shark$`Case Number...20`)
 table(shark$`Case Number...1` == shark$`Case Number...21`)
 table(shark$`Case Number...20` == shark$`Case Number...21`)
+
+library(stringr)
+DT_shark[,Date:=str_replace_all(DT_shark[,Date], "(Reported)", " ")]
+library(lubridate)
+DT_shark[,Date:=dmy(Date)]
+DT_shark[,Date_M:=month(Date)]
+DT_shark[,Date_Y:=year(Date)]
+DT_shark[,Time_hm:=hm(Time)]
+
+View(DT_shark[,c("Time","Time_hm")])
+# Morning, Afternoon etc, gehen verloren
+
+
+# unique(DT_shark[,Type])
+# unique(DT_shark[,Country])
+# unique(DT_shark[,Area])
+# unique(DT_shark[,Location])
+# unique(DT_shark[,Activity])
+# unique(DT_shark[,Sex])
+# unique(DT_shark[,Age])
+# unique(DT_shark[,Injury])
+# unique(DT_shark[,`Fatal (Y/N)`])
+# unique(DT_shark[,`Investigator or Source`])
+# DT_shark[, .N, by = Type]
+# DT_shark[, .N, by = Country]
+# DT_shark[, .N, by = Area]
+# DT_shark[, .N, by = Location]
+# DT_shark[, .N, by = Activity]
+# DT_shark[, .N, by = Sex]
+# DT_shark[, .N, by = Age]
+# DT_shark[, .N, by = Injury]
+# DT_shark[, .N, by = `Fatal (Y/N)`]
+# DT_shark[, .N, by = `Investigator or Source`]
+View(setorder(DT_shark[, .N, by = Type],-N))
+View(setorder(DT_shark[, .N, by = Country],-N))
+View(setorder(DT_shark[, .N, by = Area],-N))
+View(setorder(DT_shark[, .N, by = Location],-N))
+View(setorder(DT_shark[, .N, by = Activity],-N))
+View(setorder(DT_shark[, .N, by = Sex],-N))
+View(setorder(DT_shark[, .N, by = Age],-N))
+View(setorder(DT_shark[, .N, by = Injury],-N))
+View(setorder(DT_shark[, .N, by = `Fatal (Y/N)`],-N))
+View(setorder(DT_shark[, .N, by = `Investigator or Source`],-N))
+
+
+str(DT_shark)
 
 ```
 
