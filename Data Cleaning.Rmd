@@ -44,13 +44,13 @@ table(shark$`Case Number...20` == shark$`Case Number...21`)
 library(stringr)
 DT_shark[,Date:=str_replace_all(DT_shark[,Date], "(Reported)", " ")]
 library(lubridate)
-DT_shark[,Date:=dmy(Date)]
+DT_shark[,Date:=dmy(Date)] # Some dates are not in a date format
 DT_shark[,Date_M:=month(Date)]
 DT_shark[,Date_Y:=year(Date)]
 DT_shark[,Time_hm:=hm(Time)]
 
-View(DT_shark[,c("Time","Time_hm")])
-# Morning, Afternoon etc, gehen verloren
+View(DT_shark[,c("Time","Time_hm")]) # Morning, Afternoon etc, are lost
+
 
 
 # unique(DT_shark[,Type])
@@ -83,6 +83,39 @@ View(setorder(DT_shark[, .N, by = Age],-N))
 View(setorder(DT_shark[, .N, by = Injury],-N))
 View(setorder(DT_shark[, .N, by = `Fatal (Y/N)`],-N))
 View(setorder(DT_shark[, .N, by = `Investigator or Source`],-N))
+
+# Sex
+DT_shark[is.na(Sex),Sex:="N"]
+DT_shark[Sex==".",Sex:="N"]
+DT_shark[Sex=="lli",Sex:="N"]
+DT_shark[Sex=="M x 2",Sex:="M"]
+
+# Type
+DT_shark[is.na(Type),Type:="N"]
+DT_shark[Type=="Boat",Type:="Watercraft"]
+DT_shark[Type=="Unconfirmed"|Type=="Questionable"|Type=="Unverified"|Type=="Under investigation",Type:="N"]
+
+# Activity 
+DT_shark[is.na(Activity),Activity2:="N"]
+
+DT_shark[Activity,Activity2:=""]
+DT_shark[,Activity]
+
+DT_shark[,Activity]
+DT_shark[grepl("swim|Swim",DT_shark[,Activity]),Activity2:="Swimming"]
+DT_shark[grepl("kayak|Kayak",DT_shark[,Activity]),Activity2:="Kayaking"]
+DT_shark[grepl("fish|Fish",DT_shark[,Activity]),Activity2:="Fishing"]
+
+
+View(setorder(DT_shark[, .N, by = Activity2],-N))
+View(setorder(DT_shark[, .N, by = Activity],-N))
+
+
+DT_shark[grepl("swim|Swim",DT_shark[,Activity]),Activity]
+DT_shark[grepl("diving|Diving",DT_shark[,Activity]),Activity]
+DT_shark[grepl("surf|Surf",DT_shark[,Activity]),Activity]
+DT_shark[grepl("kayak|Kayak",DT_shark[,Activity]),Activity]
+DT_shark[grepl("fish|Fish",DT_shark[,Activity]),Activity]
 
 
 str(DT_shark)
